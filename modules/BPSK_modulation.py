@@ -1,6 +1,6 @@
 import numpy as np
 
-def bpsk_modulation(bits, carrier_freq, sampling_rate, bit_duration = 0.01):
+def bpsk_modulation(bits, carrier_freq, sampling_rate = 2000, bit_duration = 0.01) -> np.ndarray:
     """BPSK модуляция на основе синусоидальной волны."""
     t = np.linspace(0, bit_duration, int(sampling_rate * bit_duration), endpoint=False)
     modulated_signal = []
@@ -12,7 +12,7 @@ def bpsk_modulation(bits, carrier_freq, sampling_rate, bit_duration = 0.01):
         modulated_signal.append(modulated_wave)
     return np.concatenate(modulated_signal), t
 
-def bpsk_demodulation(received_signal, carrier_freq, sampling_rate, bit_duration = 0.01):
+def bpsk_demodulation(received_signal, carrier_freq, sampling_rate = 2000, bit_duration = 0.01) -> np.ndarray:
     """BPSK демодуляция на основе синусоидальной волны."""
     t = np.linspace(0, bit_duration, int(sampling_rate * bit_duration), endpoint=False)
     carrier_wave = np.sin(2 * np.pi * carrier_freq * t)
