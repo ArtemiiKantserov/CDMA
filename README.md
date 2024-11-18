@@ -38,8 +38,8 @@
 
 1. **Клонируйте репозиторий**:  
    ```bash
-   git clone https://github.com/yourusername/math-foundations-cdma.git
-   cd math-foundations-cdma
+   git clone https://github.com/ArtemiiKantserov/CDMA.git
+   cd CDMA
    ```
 
 2. **Установите зависимости**:  
@@ -94,6 +94,7 @@
 Если у вас есть вопросы, предложения или вы хотите сотрудничать, пишите нам:  
 
 - **Email**: krayoshikage2@gmail.com  
-- **GitHub**: [GitHub Profile](https://github.com/yourusername)  
+- **GitHub**: [t33nsy](https://github.com/t33nsy)
+- **GitHub**: [ArtemiiKantserov](https://github.com/ArtemiiKantserov)
 
 Будем рады вашей обратной связи и поддержке! 😊  
