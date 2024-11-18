@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def draw(combined_signal, sampling_rate):
+def draw(combined_signal, sampling_rate = 2000):
     plt.figure(figsize=(10, 5))
     plt.plot(np.arange(len(combined_signal)) / sampling_rate, combined_signal)
     plt.title("Результирующий сигнал после интерференции (CDMA + BPSK)")

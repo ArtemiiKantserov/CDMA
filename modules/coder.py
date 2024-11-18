@@ -3,7 +3,7 @@ import numpy as np
 def to_binary(i : int) -> np.array:
   ans = []
   while i > 0:
-    ans.append(i % 2)
+    ans.append(1 if i % 2 > 0 else -1)
     i //= 2
   return ans[::-1]
 
@@ -19,7 +19,8 @@ def encode(s: str, hadamard_vector: np.array) -> np.ndarray:
   # print(ans)
   for i in range(len(s)):
     bits = to_binary(ord(s[i]))
-    ans[i] =  [2 * _ * hadamard_vector - [1,1] for _ in bits]
+    # print(2 * bits[0] * hadamard_vector)
+    ans[i] =  [_ * hadamard_vector for _ in bits]
     ans[i] = np.concatenate(ans[i], axis=None)
   return ans
 
