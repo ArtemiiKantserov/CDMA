@@ -18,7 +18,7 @@ strings.sort(key = len, reverse=True)
 print(strings)
 
 while strings != []:
-  bpsk_s, delete_strs = [[]]*min_len, []
+  delete_strs =  []
   encoded = [np.concatenate([coder.encode(strings[t][i], hadamard_matrix[t]) for i in range(min_len)]) for t in range(len(strings))] 
   
   for t in range(len(strings)):
@@ -26,15 +26,15 @@ while strings != []:
       delete_strs.append(t)
       
   for i in range(min_len):
+    bpsk_s = []
     for j in range(len(strings)):
-      print(encoded[j][i])
+      # print(encoded[j][i])
       bpsk_i, _ = BPSK_modulation.bpsk_modulation(encoded[j][i], 100)
-      bpsk_s[i].append(bpsk_i)
+      bpsk_s.append(bpsk_i)
       
-    bpsk = interference.interfere(bpsk_s[i])
-    draw_modulation.draw(bpsk)
+    bpsk = interference.interfere(bpsk_s)
+    # draw_modulation.draw(bpsk)
     demodulated = BPSK_modulation.bpsk_demodulation(bpsk, 100)
-    print(demodulated)
     for j in range(len(strings)):
       print(coder.decode(demodulated, hadamard_matrix[j]), end = " ")
     print("")
@@ -47,5 +47,3 @@ while strings != []:
     
   if strings!=[]:
     min_len = len(min(strings, key = len))
-  
-  print(strings)

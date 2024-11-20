@@ -27,8 +27,8 @@ def encode(s: str, hadamard_vector: np.array) -> np.ndarray:
   return ans
 
 def decode(code: np.ndarray, hadamard_vector: np.array) -> str:
-  ans = []
-  for i in range(0, len(code), len(hadamard_vector)):
-    ans.append(1 if np.matmul(code[i:i+len(hadamard_vector)], hadamard_vector)> 0 else 0)
+  matrix = [code[i:i+len(hadamard_vector)] for i in range(0, len(code), len(hadamard_vector))]
+  multiplied = np.matmul(matrix, hadamard_vector)
+  ans = [1 if i > 0 else 0 for i in multiplied]
   return binary_to_char(ans)
   

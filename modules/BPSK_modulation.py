@@ -21,5 +21,6 @@ def bpsk_demodulation(received_signal, carrier_freq, sampling_rate = 2000, bit_d
     for i in range(0, len(received_signal), samples_per_bit):
         bit_segment = received_signal[i:i+samples_per_bit]
         correlation = np.sum(bit_segment * carrier_wave)
-        demodulated_bits.append(1 if correlation > 0 else -1)
+        ratio = correlation/np.sum(carrier_wave)
+        demodulated_bits.append(ratio)
     return np.array(demodulated_bits)
