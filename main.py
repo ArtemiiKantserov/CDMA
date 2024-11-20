@@ -33,7 +33,7 @@ while strings != []:
       bpsk_s.append(bpsk_i)
       
     bpsk = interference.interfere(bpsk_s)
-    # draw_modulation.draw(bpsk)
+    draw_modulation.draw(bpsk)
     demodulated = BPSK_modulation.bpsk_demodulation(bpsk, 100)
     for j in range(len(strings)):
       print(coder.decode(demodulated, hadamard_matrix[j]), end = " ")

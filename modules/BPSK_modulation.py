@@ -5,10 +5,9 @@ def bpsk_modulation(bits, carrier_freq, sampling_rate = 2000, bit_duration = 0.0
     t = np.linspace(0, bit_duration, int(sampling_rate * bit_duration), endpoint=False)
     modulated_signal = []
     carrier_wave = np.sin(2 * np.pi * carrier_freq * t)
-    # print(carrier_wave)
     for bit in bits:
         modulated_wave = carrier_wave if bit == 1 else -carrier_wave
-    #   print(modulated_wave, sep=' ')
+        noise_modulation(modulated_wave)
         modulated_signal.append(modulated_wave)
     return np.concatenate(modulated_signal), t
 
@@ -24,3 +23,6 @@ def bpsk_demodulation(received_signal, carrier_freq, sampling_rate = 2000, bit_d
         ratio = correlation/np.sum(carrier_wave)
         demodulated_bits.append(ratio)
     return np.array(demodulated_bits)
+
+def noise_modulation(modulated_wave):
+    return modulated_wave + np.random.normal(-0.01, 0.01, len(modulated_wave))
