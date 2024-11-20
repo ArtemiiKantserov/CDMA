@@ -1,9 +1,11 @@
 import numpy as np
 
 def to_binary(i : int) -> np.array:
-  ans = []
+  ans = [-1]*8
+  j = 0
   while i > 0:
-    ans.append(1 if i % 2 > 0 else -1)
+    ans[j] = (1 if i % 2 > 0 else -1)
+    j += 1
     i //= 2
   return ans[::-1]
 
