@@ -11,10 +11,18 @@ strings = []
 min_len = 1e20
 
 for i in range(users_num):
-  strings.append(input())
-  min_len = min(min_len, len(strings[i]))
+  s = input()
+  # print(s[1024*0:1024*(0+1)])
+  strings.append([])
+  for j in range(len(s) // 1024 + 1):
+    strings[i].append(s[1024*j:1024*(j+1)])
+count_pac = 0
+for i in range(users_num):
+  count_pac = max(count_pac, len(s[i]))
+for i in range(users_num):
+  for i in range(len(strings[i])):
+    strings[i][j] += '/0' * (1024 - len(strings[i][j]))
 
-strings.sort(key = len, reverse=True)
 print(strings)
 
 while strings != []:
