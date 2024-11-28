@@ -177,4 +177,5 @@ def decode(code: np.ndarray, hadamard_vector: np.array) -> str:
     ]
     multiplied = np.matmul(matrix, hadamard_vector)
     ans = [1 if i > 0 else 0 for i in multiplied]
+    # print(ans)
     return binary_to_char(ans)
