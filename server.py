@@ -14,16 +14,22 @@ PORT = 12345  # Порт, на котором будет работать сер
 
 hadamard_vectors = hadamard.hadamard(int(np.log2(10) + 1))
 client_size = 0
-
+clients = {}
+client_in_network ={}
 
 # Функция для обработки одного клиента
 def handle_client(client_socket, client_address):
-  
+    global client_size
+
     print(f"[INFO] Подключен клиент: {client_address}")
 
     try:
         while True:
             # Прием данных от клиента
+            ID = client_socket.recv(1024)
+            response = f"Ваше сообщение будет отправлено клиенту {ID.decode("utf-8")}"
+            client_socket.send(response.encode("utf-8"))  # Просим номер получателя
+            
             data = client_socket.recv(1024)  # Получаем до 1024 байт
             if not data:
                 # Если данных нет, клиент отключился
@@ -32,7 +38,7 @@ def handle_client(client_socket, client_address):
 
             print(f"[RECEIVED] От {client_address}: {data.decode('utf-8')}")
 
-            # Отправляем ответ клиенту
+            # Отправляем сообщение дальше
             response = f"Сервер получил: {data.decode('utf-8')}"
             client_socket.send(response.encode("utf-8"))  # Отправляем ответ
     except Exception as e:
@@ -40,16 +46,17 @@ def handle_client(client_socket, client_address):
     finally:
         client_socket.close()  # Закрываем соединение
         print(f"[INFO] Соединение с {client_address} закрыто")
+        client_size -= 1
 
 
 # Главная функция сервера
 def start_server():
     global hadamard_vectors, client_size
-    
+
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((HOST, PORT))  # Привязываем сервер к указанному хосту и порту
     server_socket.listen(10)  # Максимальная очередь подключений — 10
-    
+
     print(f"[INFO] Сервер запущен на {HOST}:{PORT}")
 
     try:
@@ -58,9 +65,10 @@ def start_server():
             client_socket, client_address = server_socket.accept()
             print(f"[INFO] Новое соединение от {client_address}")
 
+            clients[client_size] = client_socket
             client_size += 1
 
-            responce = f"You are {client_size} in network, your code will be {hadamard_vectors[client_size - 1]}"
+            responce = f"{hadamard_vectors[client_size - 1]}"
             client_socket.send(responce.encode("utf-8"))
 
             # Запускаем новый поток для обработки клиента
